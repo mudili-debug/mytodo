@@ -1,0 +1,32 @@
+<!-- tasks/templates/tasks/task_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+    <h1 class="mb-4">Task Manager</h1>
+
+    <a href="{% url 'tasks:task_create' %}" class="btn btn-primary mb-3">Create New Task</a>
+
+    <div class="list-group">
+        {% for task in tasks %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <h5>{{ task.title }}</h5>
+                <div>
+                    <a href="{% url 'tasks:task_update' task.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'tasks:task_delete' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+            </div>
+            <p>{{ task.description }}</p>
+            <small class="text-muted">Due: {{ task.due_date }} | Status: {{ task.status }}</small>
+        </div>
+        {% empty %}
+        <div class="alert alert-info">No tasks found.</div>
+        {% endfor %}
+    </div>
+</body>
+</html>
